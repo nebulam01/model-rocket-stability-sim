@@ -1,31 +1,25 @@
-# Model Rocket 2D Layout, CG/CP & Time-Dependent Stability Tool
+# 🚀 2D Rocket Layout, CG/CP & Time-Dependent Stability Tool
 
-An interactive Python simulation and visualization tool built with **Gradio**, **NumPy**, **SciPy**, and **Matplotlib** to evaluate model rocket static/dynamic stability margins, mass-derived Center of Gravity ($x_{\text{CG}}$), Barrowman Center of Pressure ($x_{\text{CP}}$), and time-dependent flight stability prior to launch.
+An interactive simulation and visualization tool I built in Google Colab using **Gradio**, **NumPy**, **SciPy**, and **Matplotlib** to check model rocket stability, mass-derived Center of Gravity ($x_{\text{CG}}$), Barrowman Center of Pressure ($x_{\text{CP}}$), and time-dependent flight stability before any launch.
 
-## Key Features
-- **Interactive Component & Geometry Selection:** Configure nose cone planform (*Ogive, Conical, Parabolic, Elliptical*), nose/body dimensions, fin geometry (*Trapezoidal, Elliptical*, 3 or 4 fins), structural wall thickness and density, payload mass/position, motor thrust profile, and crosswind speed.
-- **2D Engineering Cross-Section:** Plots the airframe geometry, fin planform, mass-derived **CG**, Barrowman **CP**, and key flight summary metrics.
-- **Physics-Based Flight & Stability Integration:** Solves a rigid-body 2-DOF pitch/vertical flight model using `scipy.integrate.solve_ivp` (`RK45`) with prescribed solid-motor thrust curves and propellant mass depletion.
-- **Automated Stability Classification & Engineering Commentary:** Categorizes configurations into **Good**, **Borderline (Over-Stable / Wind-Sensitive)**, or **Unstable** with actionable design notes.
+## ✨ Key Features
+- **Interactive Component & Geometry Setup:** Pick nose cone shape (*Ogive, Conical, Parabolic, Elliptical*), nose/body dimensions, fin geometry (*Trapezoidal, Elliptical*, 3 or 4 fins), wall thickness and material density, payload mass/position, solid motor curve, and crosswind speed.
+- **2D Engineering Cross-Section:** Draws the 2D rocket profile, fin planform, mass-derived **CG**, Barrowman **CP**, and key flight summary numbers right on the canvas.
+- **Physics-Based Flight & Stability Solver:** Integrates a rigid-body 2-DOF pitch/vertical flight model with `scipy.integrate.solve_ivp` (`RK45`) using motor thrust profiles and propellant mass burn-off.
+- **Automated Stability Status & Engineering Notes:** Classifies designs as **Good**, **Borderline (Over-Stable / Wind-Sensitive)**, or **Unstable**, with practical engineering feedback and explicit model assumptions.
 
-## Physics Model & Scope
-- **Aerodynamics (CP & $C_{N\alpha}$):** Subsonic Barrowman-style normal force slope and center-of-pressure estimation for nose cone and fin surfaces, paired with a first-order zero-lift drag estimate ($C_{D0}$).
-- **Mass & Center of Gravity ($x_{\text{CG}}$):** Computed from component geometry, material density, payload placement, and time-varying propellant mass during motor burn.
-- **Trajectory & Stability Margin:** Evaluates stability margin in calibers ($\text{SM} = \frac{x_{\text{CP}}(t) - x_{\text{CG}}(t)}{d}$) over time under exponential standard atmosphere density and crosswind effects.
+## 🛠️ Tech Stack
+- **Environment:** Google Colab (no local OpenRocket install needed)
+- **Simulation & Plotting:** Python, Gradio, NumPy, SciPy (`solve_ivp` / `RK45`), Matplotlib
 
-### Limitations & Assumptions
-- Intended for **preliminary pre-launch design exploration and educational/engineering analysis**, not flight certification.
-- Assumes subsonic flow regime, rigid-body airframe, simplified crosswind/pitch coupling, and does not yet model parachute deployment or multi-stage separation.
+## ⚙️ How to Run the Project
+1. **Open in Google Colab:**
+   - Upload `2d-rocket-stability-barrowman-rk45.ipynb` to Google Colab (`colab.research.google.com`).
+2. **Run & Launch the UI:**
+   - Run the notebook cells; Gradio will install dependencies (`gradio`, `matplotlib`, `numpy`, `scipy`) and open the interactive interface right below the cell (plus a temporary `gradio.live` link if you want a bigger view).
+3. **Explore & Iterate:**
+   - Tweak geometry, materials, motor, or wind sliders/dropdowns and hit **Simulate & Plot** to see the 2D layout, stability-over-time curve, and status commentary update live.
 
-## How to Run
-
-### Option 1: Google Colab (Recommended)
-1. Upload `notebooks/2d-rocket-stability-barrowman-rk45.ipynb` to Google Colab.
-2. Run all cells; Gradio will launch an interactive interface directly in the notebook and provide a temporary public URL.
-
-### Option 2: Local Python Environment
-```bash
-git clone [https://github.com/](https://github.com/)<your-username>/model-rocket-stability-sim.git
-cd model-rocket-stability-sim
-pip install -r requirements.txt
-python src/rocket_stability_sim.py
+## 📌 Scope & Assumptions
+- Built for **pre-launch design exploration and engineering analysis**, not flight certification.
+- Uses a subsonic Barrowman CP estimation, rigid-body 2-DOF pitch/vertical dynamics, exponential standard atmosphere density, and prescribed motor thrust profiles (parachute deployment and multi-stage separation are not modeled yet).
